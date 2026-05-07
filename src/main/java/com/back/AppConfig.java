@@ -1,12 +1,19 @@
 package com.back;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 @Configuration
 public class AppConfig {
+
+    @Lazy
+    @Autowired
+    private AppConfig self;
+
     @Bean
     PersonRepository personRepository() {
         return new PersonRepository(1);
@@ -30,8 +37,8 @@ public class AppConfig {
     @Bean
     public ApplicationRunner myApplicationRunner2() {
         return args -> {
-            work1();
-            work2();
+            self.work1();
+            self.work2();
         };
     }
 
